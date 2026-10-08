@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #eff6ff;
+  --color-brand-500: #2563eb;
+  --color-brand-600: #1d4ed8;
+}
+
+/*
+ * Dark mode.
+ *
+ * The app uses hardcoded light utilities (bg-white, text-slate-900,
+ * border-slate-200, bg-slate-50 ...). Rather than annotate every element, we
+ * remap the slate/white palette variables that Tailwind v4 resolves at runtime
+ * when the root carries the `.dark` class. This inverts the whole product from
+ * one place while keeping accent colors (blue/rose/amber/emerald/purple) intact.
+ */
+.dark {
+  /* Neutrals flipped: light slates become dark surfaces, dark slates become light text. */
+  --color-white: #0f172a;          /* surfaces that used pure white */
+  --color-slate-50: #0b1220;       /* subtle fills / table zebra */
+  --color-slate-100: #16233b;      /* chips, hovers, tracks */
+  --color-slate-200: #243249;      /* borders / dividers */
+  --color-slate-300: #33425c;      /* stronger borders */
+  --color-slate-400: #7c8aa5;      /* muted icons */
+  --color-slate-500: #93a1ba;      /* secondary text */
+  --color-slate-600: #aab6cd;      /* body-ish text */
+  --color-slate-700: #c4cdde;      /* strong text */
+  --color-slate-800: #dde3ef;      /* headings */
+  --color-slate-900: #f1f5f9;      /* primary text */
+
+  /* Tone down tinted accent backgrounds so they read on dark surfaces. */
+  --color-blue-50: #15233f;
+  --color-rose-50: #2a1620;
+  --color-amber-50: #2a2112;
+  --color-emerald-50: #0f2a20;
+  --color-purple-50: #211634;
+  --color-yellow-50: #2a2512;
+
+  --color-blue-100: #1c2d4d;
+  --color-blue-200: #26406b;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  body {
+    background-color: #f6f8fb;
+    color: #0f172a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  .dark body {
+    background-color: #090e1a;
+    color: #f1f5f9;
+  }
+
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: #33425c;
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+  }
+}
+
+@layer utilities {
+  /* Soft elevated card surface used across the product */
+  .cs-card {
+    background-color: #ffffff;
+    border: 1px solid #e9edf3;
+    border-radius: 1rem;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.03);
+  }
+  .dark .cs-card {
+    background-color: #111a2e;
+    border-color: #243249;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  .cs-card-hover {
+    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  }
+  .cs-card-hover:hover {
+    box-shadow: 0 6px 20px -8px rgba(15, 23, 42, 0.14), 0 2px 6px rgba(15, 23, 42, 0.05);
+    border-color: #dbe3ee;
+  }
+  .dark .cs-card-hover:hover {
+    box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.4);
+    border-color: #33425c;
+  }
+
+  /* Subtle app background gradient */
+  .cs-app-bg {
+    background:
+      radial-gradient(1200px 600px at 100% -10%, rgba(37, 99, 235, 0.05), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(124, 58, 237, 0.04), transparent 55%),
+      #f6f8fb;
+  }
+  .dark .cs-app-bg {
+    background:
+      radial-gradient(1200px 600px at 100% -10%, rgba(37, 99, 235, 0.14), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(124, 58, 237, 0.12), transparent 55%),
+      #090e1a;
+  }
+
+  /*
+   * Permanently-dark chrome (the sidebar) — pins the slate/white palette to the
+   * original light-theme literals so its inline utilities (bg-slate-900,
+   * text-white, text-slate-300 ...) always render as a dark navy surface,
+   * regardless of the active theme.
+   */
+  .cs-chrome-dark {
+    --color-white: #ffffff;
+    --color-slate-100: #f1f5f9;
+    --color-slate-200: #e2e8f0;
+    --color-slate-300: #cbd5e1;
+    --color-slate-400: #94a3b8;
+    --color-slate-500: #64748b;
+    --color-slate-600: #475569;
+    --color-slate-700: #334155;
+    --color-slate-800: #1e293b;
+    --color-slate-900: #0f172a;
+  }
+
+  .cs-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+  .dark .cs-section-label {
+    color: #93a1ba;
+  }
+
+  .animate-cs-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: cs-draw 0.9s ease forwards;
+  }
+  @keyframes cs-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .animate-cs-rise {
+    animation: cs-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes cs-rise {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "ClaimShield Nexus",
+  "description": "Explainable Healthcare Fraud, Waste & Abuse (FWA) Intelligence & Digital Twin Platform for Payers and Special Investigations Units (SIUs).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
